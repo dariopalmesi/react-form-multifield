@@ -5,16 +5,17 @@ import animes from './data/anime.js'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-// const initialFormData = {
-//   name: '',
-//   image: '',
-//   content: '',
-//   category: '',
-//   avaible: false
-// }
+const initialFormData = {
+  name: '',
+  image: '',
+  content: '',
+  category: '',
+  avaible: false
+}
 function App() {
   const [anime, setAnime] = useState(animes)
   const [newAnime, setNewAnime] = useState('')
+  const [formData, setFormData] = useState(initialFormData)
 
   function addAnime(e) {
     e.preventDefault()
@@ -37,8 +38,17 @@ function App() {
   }
 
   function handleFormSubmit(e) {
-    console.log('Form sent');
+    e.preventDefault()
+    console.log('Form sent', formData);
 
+  }
+
+  function handleFormField(e) {
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
+    setFormData({
+      ...formData,
+      [e.target.name]: value
+    })
   }
   return (
     <>
@@ -75,6 +85,9 @@ function App() {
                 id="name"
                 aria-describedby="namehelper"
                 placeholder="Anime"
+                required
+                value={formData.name}
+                onChange={handleFormField}
               />
               <small id="namehelper" className="form-text text-muted">Type Name of Anime</small>
             </div>
@@ -87,6 +100,8 @@ function App() {
                 id="image"
                 aria-describedby="imagehelper"
                 placeholder="/images/1.jpg"
+                value={formData.image}
+                onChange={handleFormField}
               />
               <small id="imagehelper" className="form-text text-muted">Type image path of Anime</small>
             </div>
@@ -99,6 +114,8 @@ function App() {
                 id="content"
                 aria-describedby="contenthelper"
                 placeholder="Content"
+                value={formData.content}
+                onChange={handleFormField}
               />
               <small id="contenthelper" className="form-text text-muted">Type Content Anime</small>
             </div>
@@ -108,6 +125,8 @@ function App() {
                 className="form-select form-select-lg"
                 name="category"
                 id="category"
+                value={formData.category}
+                onChange={handleFormField}
               >
                 <option>Select a category</option>
                 <option defaultValue="">Shonen</option>
@@ -115,21 +134,17 @@ function App() {
                 <option defaultValue="">Seinen</option>
               </select>
             </div>
+            <div className="form-check">
+              <input className="form-check-input" type="checkbox" value={formData.avaible} onChange={handleFormField} name='avaible' id="avaible" />
+              <label className="form-check-label" htmlFor="">Avaible</label>
+            </div>
+            <button
+              type="submit"
+              className="btn btn-primary"
+            >
+              Submit
+            </button>
           </form>
-          <div className="form-check">
-            <input className="form-check-input" type="checkbox" value="" id="" />
-            <label className="form-check-label" htmlFor="">Avaible</label>
-          </div>
-          <button
-            type="submit"
-            className="btn btn-primary"
-          >
-            Submit
-          </button>
-
-
-
-
         </div>
 
 
