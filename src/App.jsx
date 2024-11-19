@@ -16,6 +16,7 @@ function App() {
   const [anime, setAnime] = useState(animes)
   const [newAnime, setNewAnime] = useState('')
   const [formData, setFormData] = useState(initialFormData)
+  const [animeList, setAnimeList] = useState(animes)
 
   function addAnime(e) {
     e.preventDefault()
@@ -40,7 +41,13 @@ function App() {
   function handleFormSubmit(e) {
     e.preventDefault()
     console.log('Form sent', formData);
-
+    setAnimeList([
+      {
+        id: Date.now(),
+        ...formData,
+      },
+      ...animeList
+    ])
   }
 
   function handleFormField(e) {
@@ -158,7 +165,7 @@ function App() {
             </div>
           </form>
           <ul className="list-group mt-4">
-            {anime.map((anime, index) => (< li key={index} className="list-group-item d-flex justify-content-between" >
+            {animeList.map((anime, index) => (< li key={index} className="list-group-item d-flex justify-content-between" >
               {anime}
               <button onClick={handleTrashAnimeClick} data-index={index}><i className="bi bi-trash-fill"></i></button>
             </li>))}
