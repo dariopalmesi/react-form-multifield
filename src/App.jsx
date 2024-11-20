@@ -166,7 +166,13 @@ function App() {
           </form>
           <ul className="list-group mt-4">
             {animeList.map((anime, index) => (< li key={index} className="list-group-item d-flex justify-content-between" >
-              {anime}
+              <div className="container">
+                <p>{anime.name}</p>
+                <img src={anime.image} alt={anime.name} />
+                <p>{anime.content}</p>
+                <p>{anime.category}</p>
+                <p>{anime.available}</p>
+              </div>
               <button onClick={handleTrashAnimeClick} data-index={index}><i className="bi bi-trash-fill"></i></button>
             </li>))}
           </ul>
